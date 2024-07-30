@@ -3,13 +3,18 @@ replicaCount: 1
 image:
   repository: danielofir/barkuni-app
   tag: latest
-  # tag: test
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 80
   targetPort: 5000
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: 'ip'
 
 resources:
   limits:
