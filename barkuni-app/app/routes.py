@@ -10,7 +10,7 @@ items = [
 
 @main.route('/', methods=['GET'])
 def welcome():
-  return "Hello Vicarius :) Welcome to Barkuni Corps!"
+  return "Hello Vicarius :) Welcome to Barkuni Corp!"
 
 @main.route('/items', methods=['GET'])
 def get_items():
