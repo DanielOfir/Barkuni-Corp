@@ -39,7 +39,6 @@ module "aws-load-balancer-controller" {
   cluster_identity_oidc_issuer_arn       = module.eks_project.eks_cluster_identity_oidc_issuer_arn
   cluster_identity_oidc_issuer           = module.eks_project.eks_cluster_identity_oidc_issuer
 
-  # namespace                              = var.aws_load_balancer_controller_namespace
   namespace                              = var.namespace
   vpc_id                                 = module.eks_project.vpc_id
   region                                 = var.region
