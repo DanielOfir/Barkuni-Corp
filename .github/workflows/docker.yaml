@@ -1,0 +1,55 @@
+name: 'docker'
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - 'barkuni-app/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  docker:
+    name: 'Docker CI'
+    runs-on: ubuntu-latest
+    
+    env:
+      AWS_REGION: us-east-1
+      EKS_CLUSTER_NAME: barkuni-dev-eks-cluster
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v1
+
+
+    # Check AWS credentials 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        # role-to-assume: arn:aws:iam::533267153411:role/role_for_tf
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+    
+# Login to Docker Hub
+    - name: Login to Docker Hub
+      id: login-dockerhub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    
+    # Docker Build, Tag and Push
+    - name: Build, tag, and push image to Docker Hub
+      id: docker-push
+      env:
+        DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_USERNAME }}/barkuni-app
+        IMAGE_TAG: latest
+      run: |
+        docker build -t $DOCKERHUB_REPOSITORY:$IMAGE_TAG .
+        echo "Pushing image to Docker Hub..."
+        docker push $DOCKERHUB_REPOSITORY:$IMAGE_TAG
