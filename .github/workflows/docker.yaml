@@ -3,8 +3,7 @@ name: 'docker'
 on:
   push:
     branches:
-    # - main
-    - initial-commit
+    - main
     paths:
     - 'barkuni-app/**'
 
