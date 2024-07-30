@@ -15,3 +15,4 @@ This repo includes everything that is needed to create an EKS cluster and deploy
 - Containerization: Docker
 - CI/CD: GitHub Actions
 - Cloud Provider: AWS
+- IAC: Terraform
