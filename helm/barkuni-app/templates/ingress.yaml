@@ -2,11 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "barkuni-app.fullname" . }}
-  annotations: 
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/target-type: 'ip'
+  annotations: {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   rules:
     - http:
