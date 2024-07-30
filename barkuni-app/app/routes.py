@@ -4,7 +4,7 @@ main = Blueprint('main', __name__)
 
 # Sample data
 items = [
-    {"id": 1, "name": "Vicarius", "description": "This is item 1"},
+    {"id": 1, "name": "Vicarius", "description": "This is item 12"},
     {"id": 2, "name": "Barkuni", "description": "This is item 2"},
 ]
 
